@@ -4,11 +4,7 @@ import createLogger from './createLogger';
 import config from '../config.json';
 
 const logger = createLogger(config);
-const {
-  rabbitmq,
-  serviceName,
-} = config;
-
+const { rabbitmq, serviceName } = config;
 
 // Create broker
 const broker = new ServiceBroker({
@@ -16,11 +12,11 @@ const broker = new ServiceBroker({
   transporter: {
     type: 'AMQP',
     options: {
-      url: `amqp://${ rabbitmq.user }:${ rabbitmq.pass }@${ rabbitmq.host }:${ rabbitmq.port }`,
+      url: `amqp://${rabbitmq.user}:${rabbitmq.pass}@${rabbitmq.host}:${rabbitmq.port}`,
       prefetch: 1,
     },
   },
-  logger: bindings => logger.child(bindings),
+  logger: (bindings) => logger.child(bindings),
 });
 
 broker.createService({
@@ -40,7 +36,6 @@ broker.createService({
   },
 });
 
-broker.start()
-  .then(async () => {
-    logger.info(`${ serviceName } up and running`);
-  });
+broker.start().then(async () => {
+  logger.info(`${serviceName} up and running`);
+});

@@ -1,6 +1,6 @@
 import bunyan from 'bunyan';
 
-export default config => {
+export default (config) => {
   if (config.environment === 'development') {
     return bunyan.createLogger({
       name: config.serviceName,

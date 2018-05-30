@@ -3,9 +3,9 @@ import amqplib from 'amqplib';
 let rabbit;
 let channel;
 
-export default async (rabbitMQConfig, queueName, logger) => {
+export default async (config, queueName, logger) => {
   if (!rabbit) {
-    const rabbitMQUrl = `amqp://${ rabbitMQConfig.user }:${ rabbitMQConfig.password }@${ rabbitMQConfig.host }:${ rabbitMQConfig.port }`;
+    const rabbitMQUrl = `amqp://${config.user}:${config.password}@${config.host}:${config.port}`;
     rabbit = await amqplib.connect(rabbitMQUrl);
     channel = await rabbit.createChannel();
   }
@@ -14,8 +14,8 @@ export default async (rabbitMQConfig, queueName, logger) => {
     await channel.assertQueue(queueName, { durable: true });
     channel.prefetch(1);
     return {
-      consume: consumer => {
-        channel.consume(queueName, msg => {
+      consume: (consumer) => {
+        channel.consume(queueName, (msg) => {
           if (msg !== null) {
             const payload = JSON.parse(msg.content.toString('utf-8'));
             consumer(payload);
@@ -23,7 +23,7 @@ export default async (rabbitMQConfig, queueName, logger) => {
           }
         });
       },
-      place: payload => {
+      place: (payload) => {
         channel.sendToQueue(queueName, Buffer.from(JSON.stringify(payload)));
       },
     };
@@ -31,4 +31,3 @@ export default async (rabbitMQConfig, queueName, logger) => {
     logger.error(e);
   }
 };
-

@@ -16,6 +16,9 @@ module.exports = {
   plugins: ['prettier', 'flowtype'],
   settings: {
     'import/resolver': {
+      node: {
+        paths: ['node_modules'],
+      },
     },
     flowtype: {
       onlyFilesWithFlowAnnotation: true,

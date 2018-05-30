@@ -1,15 +1,10 @@
 import config from '../../config';
 import createQueue from '../../service/createQueue';
 
-const {
-  rabbitmq,
-} = config;
+const { rabbitmq } = config;
 
 export default async (context) => {
-  const {
-    broker,
-    logger
-  } = context;
+  const { logger } = context;
   let count = 0;
   const queue = await createQueue(rabbitmq, 'tasks', logger);
 
@@ -23,5 +18,5 @@ export default async (context) => {
     res.json({
       placed: true,
     });
-  }
+  };
 };

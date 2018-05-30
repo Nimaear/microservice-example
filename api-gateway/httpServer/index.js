@@ -8,7 +8,6 @@ export default async (broker, logger) => {
   await routes(app, { broker, logger });
   app.get('/', (req, res) => {
     res.json({ OK: true });
-  })
+  });
   return app;
-}
-
+};
