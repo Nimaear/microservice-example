@@ -1,0 +1,11 @@
+{
+  "environment": "production",
+  "serviceName": "ApiGateway",
+  "port": 3001,
+  "rabbitmq": {
+    "user": "guest",
+    "password": "guest",
+    "host": "rabbitmq",
+    "port": 5672
+  }
+}

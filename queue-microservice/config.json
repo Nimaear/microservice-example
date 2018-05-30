@@ -1,0 +1,10 @@
+{
+  "environment": "production",
+  "serviceName": "Queue",
+  "rabbitmq": {
+    "host": "rabbitmq",
+    "port": 5672,
+    "user": "guest",
+    "pass": "guest"
+  }
+}

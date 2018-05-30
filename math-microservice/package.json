@@ -1,0 +1,26 @@
+{
+  "name": "math-microservice",
+  "version": "0.0.1",
+  "description": "Math microservice in moleculer",
+  "main": "index.js",
+  "author": "Özgür Ayten",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js | bunyan"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "bunyan": "^1.8.12",
+    "esm": "^3.0.28",
+    "moleculer": "^0.12.1",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.1.0"
+  }
+}

@@ -1,0 +1,42 @@
+version: '2'
+services:
+  rabbitmq:
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    image: launcher.gcr.io/google/rabbitmq3
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - /home/oxygen/Workspace/Code/data/rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - some-net
+  gateway:
+    build: api-gateway
+    command: npm start
+    ports:
+      - 3001:3001
+    depends_on:
+      - rabbitmq
+      - math
+      - queue
+    networks:
+      - some-net
+  math:
+    build: math-microservice
+    command: npm start
+    depends_on:
+      - rabbitmq
+    networks:
+      - some-net
+  queue:
+    build: queue-microservice
+    command: npm start
+    depends_on:
+      - rabbitmq
+    networks:
+      - some-net
+networks:
+  some-net:
+    driver: bridge
