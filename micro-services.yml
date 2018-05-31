@@ -1,77 +1,39 @@
 version: '2'
 services:
-  rabbitmq:
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    image: launcher.gcr.io/google/rabbitmq3
-    ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - /home/oxygen/Workspace/Code/data/rabbitmq-data:/var/lib/rabbitmq
-    networks:
-      - some-net
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - /home/oxygen/Workspace/Code/data/postgres:/var/lib/postgresql/data
-    networks:
-      - some-net
-
   gateway:
     build: api-gateway
     command: npm start
     ports:
       - 3001:3001
-    depends_on:
-      - rabbitmq
     restart: on-failure
     networks:
       - some-net
   java-math:
     build: java-math-service
     command: mvn exec:java -Dexec.mainClass="com.salesbox.MathService.App"
-    depends_on:
-      - rabbitmq
     restart: on-failure
     networks:
       - some-net
   java-queue:
     build: java-queue-service
     command: mvn exec:java -Dexec.mainClass="com.salesbox.QueueService.App"
-    depends_on:
-      - rabbitmq
     restart: on-failure
     networks:
       - some-net
   email:
     build: pg-microservice
     command: /bin/bash -c "sleep 10; npm start"
-    depends_on:
-      - rabbitmq
-      - postgres
     restart: on-failure
     networks:
       - some-net
   math:
     build: math-microservice
     command: npm start
-    depends_on:
-      - rabbitmq
     networks:
       - some-net
   queue:
     build: queue-microservice
     command: npm start
-    depends_on:
-      - rabbitmq
     networks:
       - some-net
 

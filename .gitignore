@@ -2,3 +2,4 @@
 *.sublime-workspace
 node_modules
 java-math-service/target
+java-queue-service/target
