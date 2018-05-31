@@ -12,31 +12,6 @@ services:
       - /home/oxygen/Workspace/Code/data/rabbitmq-data:/var/lib/rabbitmq
     networks:
       - some-net
-  gateway:
-    build: api-gateway
-    command: npm start
-    ports:
-      - 3001:3001
-    depends_on:
-      - rabbitmq
-      - math
-      - pg
-    networks:
-      - some-net
-  math:
-    build: math-microservice
-    command: npm start
-    depends_on:
-      - rabbitmq
-    networks:
-      - some-net
-  pg:
-    build: pg-microservice
-    command: npm start
-    depends_on:
-      - rabbitmq
-    networks:
-      - some-net
   postgres:
     image: postgres
     restart: always

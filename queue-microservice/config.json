@@ -5,6 +5,6 @@
     "host": "rabbitmq",
     "port": 5672,
     "user": "guest",
-    "pass": "guest"
+    "password": "guest"
   }
 }

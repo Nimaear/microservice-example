@@ -1,11 +1,12 @@
 import { ServiceBroker } from 'moleculer';
 import uuid from 'uuid/v4';
+import connectToPg from './connectToPg';
 import createQueue from './createQueue';
 import createLogger from './createLogger';
 import config from '../config.json';
 
 const logger = createLogger(config);
-const { rabbitmq, serviceName } = config;
+const { rabbitmq, postgres, serviceName } = config;
 
 // Create broker
 const broker = new ServiceBroker({
@@ -22,12 +23,16 @@ const broker = new ServiceBroker({
 
 broker.start().then(async () => {
   logger.info(`${serviceName} up and running`);
-
+  const pgClient = await connectToPg({ config: postgres, logger });
   const queue = await createQueue(rabbitmq, 'tasks', logger);
   queue.consume(async (payload, ack) => {
-    setTimeout(() => {
-      logger.info({ payload });
-      ack();
-    }, 5000);
+    const insertQuery = 'INSERT INTO tasks(data) VALUES($1) RETURNING *';
+    try {
+      const res = await pgClient.query(insertQuery, [payload]);
+      logger.info(res);
+    } catch (e) {
+      logger.error(e);
+    }
+    ack();
   });
 });

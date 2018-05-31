@@ -1,0 +1,17 @@
+{
+  "environment": "production",
+  "serviceName": "Postgres",
+  "rabbitmq": {
+    "host": "rabbitmq",
+    "port": 5672,
+    "user": "guest",
+    "password": "guest"
+  },
+  "postgres": {
+    "host": "postgres",
+    "port": "5432",
+    "user": "postgres",
+    "password": "postgres",
+    "db": "oz"
+  }
+}
