@@ -30,6 +30,20 @@ services:
       - rabbitmq
     networks:
       - some-net
+  queue:
+    build: queue-microservice
+    command: npm start
+    depends_on:
+      - rabbitmq
+    networks:
+      - some-net
+  email:
+    build: email-microservice
+    command: npm start
+    depends_on:
+      - rabbitmq
+    networks:
+      - some-net
   pg:
     build: pg-microservice
     command: npm start
