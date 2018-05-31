@@ -20,7 +20,7 @@ services:
     depends_on:
       - rabbitmq
       - math
-      - pg
+      - email
     networks:
       - some-net
   math:
@@ -38,13 +38,6 @@ services:
     networks:
       - some-net
   email:
-    build: email-microservice
-    command: npm start
-    depends_on:
-      - rabbitmq
-    networks:
-      - some-net
-  pg:
     build: pg-microservice
     command: npm start
     depends_on:
