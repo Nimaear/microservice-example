@@ -25,13 +25,8 @@ broker.createService({
     add(ctx) {
       // Simulate a call that's taking 1000 milliseconds
       logger.info('Got', ctx.params);
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const { a, b } = ctx.params;
-          logger.info('Sent', Number(a) + Number(b));
-          resolve(Number(a) + Number(b));
-        }, 1000);
-      });
+      const { a, b } = ctx.params;
+      return Number(a) + Number(b);
     },
   },
 });

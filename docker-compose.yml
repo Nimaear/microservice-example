@@ -35,6 +35,14 @@ services:
     restart: on-failure
     networks:
       - some-net
+  java-math:
+    build: java-math-service
+    command: mvn exec:java -Dexec.mainClass="com.salesbox.MathService.App"
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+    networks:
+      - some-net
   email:
     build: pg-microservice
     command: /bin/bash -c "sleep 10; npm start"

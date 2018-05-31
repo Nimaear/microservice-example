@@ -8,9 +8,3 @@
     "pass": "guest"
   }
 }
-
-
-
-#mobile-menu-item-30453, #nav-menu-item-30453, #sticky-nav-menu-item-30453  { /* tour */
-  display: none;
-}
