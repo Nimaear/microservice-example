@@ -12,6 +12,19 @@ services:
       - /home/oxygen/Workspace/Code/data/rabbitmq-data:/var/lib/rabbitmq
     networks:
       - some-net
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - /home/oxygen/Workspace/Code/data/postgres:/var/lib/postgresql/data
+    networks:
+      - some-net
+
   gateway:
     build: api-gateway
     command: npm start
@@ -19,8 +32,16 @@ services:
       - 3001:3001
     depends_on:
       - rabbitmq
-      - math
-      - email
+    restart: on-failure
+    networks:
+      - some-net
+  email:
+    build: pg-microservice
+    command: /bin/bash -c "sleep 10; npm start"
+    depends_on:
+      - rabbitmq
+      - postgres
+    restart: on-failure
     networks:
       - some-net
   math:
@@ -37,23 +58,6 @@ services:
       - rabbitmq
     networks:
       - some-net
-  email:
-    build: pg-microservice
-    command: npm start
-    depends_on:
-      - rabbitmq
-    networks:
-      - some-net
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - /home/oxygen/Workspace/Code/data/postgres:/var/lib/postgresql/data
 
 networks:
   some-net:

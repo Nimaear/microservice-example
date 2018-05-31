@@ -22,18 +22,20 @@ const broker = new ServiceBroker({
 });
 
 broker.start().then(async () => {
-  logger.info(`${serviceName} up and running`);
-  const pgClient = await connectToPg({ config: postgres, logger });
-  const queue = await createQueue(rabbitmq, 'emails', logger);
+  setTimeout(async () => {
+    logger.info(`${serviceName} up and running`);
+    const pgClient = await connectToPg({ config: postgres, logger });
+    const queue = await createQueue(rabbitmq, 'emails', logger);
 
-  queue.consume(async (payload, ack) => {
-    const insertQuery = 'INSERT INTO emails(data) VALUES($1) RETURNING *';
-    try {
-      const res = await pgClient.query(insertQuery, [payload]);
-      logger.info(res);
-    } catch (e) {
-      logger.error(e);
-    }
-    ack();
-  });
+    queue.consume(async (payload, ack) => {
+      const insertQuery = 'INSERT INTO emails(data) VALUES($1) RETURNING *';
+      try {
+        const res = await pgClient.query(insertQuery, [payload]);
+        logger.info(res);
+      } catch (e) {
+        logger.error(e);
+      }
+      ack();
+    });
+  }, 10000);
 });

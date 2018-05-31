@@ -22,6 +22,8 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - /home/oxygen/Workspace/Code/data/postgres:/var/lib/postgresql/data
+    networks:
+      - some-net
 
 networks:
   some-net:
