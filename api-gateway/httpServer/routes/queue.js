@@ -1,3 +1,4 @@
+// @flow
 import config from '../../config';
 import createQueue from '../../service/createQueue';
 

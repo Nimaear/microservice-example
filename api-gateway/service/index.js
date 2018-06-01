@@ -1,3 +1,4 @@
+// @flow
 import { ServiceBroker } from 'moleculer';
 import uuid from 'uuid/v4';
 import createLogger from './createLogger';
@@ -10,6 +11,7 @@ const { rabbitmq, port, serviceName } = config;
 // Create broker
 const broker = new ServiceBroker({
   nodeID: `api-gateway-${uuid()}`,
+  logLevel: 'debug',
   transporter: {
     type: 'AMQP',
     options: {
@@ -21,10 +23,9 @@ const broker = new ServiceBroker({
   logger: (bindings) => logger.child(bindings),
 });
 
-broker
-  .start()
-  .then(() => broker.waitForServices('Math'))
-  .then(async () => {
-    const app = await createHttpServer(broker, logger);
-    app.listen(port, () => logger.info(`${serviceName} listening on port: ${port}`));
+broker.start().then(async () => {
+  const app = await createHttpServer(broker, logger);
+  app.listen(port, () => {
+    logger.info(`${serviceName} listening on port: ${port}`);
   });
+});

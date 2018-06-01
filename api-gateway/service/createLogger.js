@@ -1,22 +1,41 @@
-import bunyan from 'bunyan';
+// @flow
+import pino from 'pino';
+import childProcess from 'child_process';
+import path from 'path';
+import stream from 'stream';
+import tee from 'pino-tee';
+import fs from 'fs';
+import config from '../config';
+
+
+const cwd = process.cwd();
+const { env } = process;
+const logPath = path.resolve(cwd, 'logs');
+
+const logThrough = new stream.PassThrough();
 
 export default (config) => {
-  if (config.environment === 'development') {
-    return bunyan.createLogger({
-      name: config.serviceName,
-      level: bunyan.DEBUG,
-      serializers: {
-        req: bunyan.stdSerializers.req,
-        res: bunyan.stdSerializers.res,
-      },
-    });
-  }
-  return bunyan.createLogger({
+  const isDev = config.environment === 'development' ;
+
+  const logger = pino({
     name: config.serviceName,
-    level: bunyan.INFO,
-    serializers: {
-      req: bunyan.stdSerializers.req,
-      res: bunyan.stdSerializers.res,
-    },
-  });
+    // level: isDev ? 'debug' : 'info',
+  }, logThrough)
+
+  const child = childProcess.spawn(process.execPath, [
+    require.resolve('pino-tee'),
+    'debug', `${logPath}/debug.log`,
+    'info', `${logPath}/info.log`,
+    'warn', `${logPath}/warn.log`,
+    'error', `${logPath}/error.log`,
+    'fatal', `${logPath}/fatal.log`
+  ], {cwd, env});
+
+  if (isDev) {
+    // const pretty = pino.pretty();
+    // pretty.pipe(process.stdout);
+    // logThrough.pipe(pretty);
+  }
+
+  return logger;
 };

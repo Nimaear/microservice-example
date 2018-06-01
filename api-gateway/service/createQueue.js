@@ -1,3 +1,4 @@
+// @flow
 import amqplib from 'amqplib';
 
 let rabbit;
