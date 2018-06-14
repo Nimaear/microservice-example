@@ -1,40 +1,49 @@
 // @flow
 import pino from 'pino';
-import childProcess from 'child_process';
 import path from 'path';
-import stream from 'stream';
-import tee from 'pino-tee';
-import fs from 'fs';
 import config from '../config';
+import childProcess from 'child_process';
+import { PassThrough } from 'stream';
 
+const logPath = `${process.cwd()}/logs`;
+const logThrough = new PassThrough();
 
-const cwd = process.cwd();
-const { env } = process;
-const logPath = path.resolve(cwd, 'logs');
-
-const logThrough = new stream.PassThrough();
 
 export default (config) => {
-  const isDev = config.environment === 'development' ;
 
   const logger = pino({
     name: config.serviceName,
-    // level: isDev ? 'debug' : 'info',
-  }, logThrough)
+    level: 'debug',
+  }, logThrough);
+  let processes;
+  if (config.environment === 'production') {
+    processes = [
+      require.resolve('pino-tee'),
+      'warn', `${logPath}/warn.log`,
+      'error', `${logPath}/error.log`,
+      'fatal', `${logPath}/fatal.log`
+    ];
+  } else {
+    processes = [
+      require.resolve('pino-tee'),
+      'debug', `${logPath}/debug.log`,
+      'info', `${logPath}/info.log`,
+      'warn', `${logPath}/warn.log`,
+      'error', `${logPath}/error.log`,
+      'fatal', `${logPath}/fatal.log`
+    ];
+  }
+  const child = childProcess.spawn(process.execPath, processes, {
+    cwd: __dirname,
+    env: process.env
+  });
 
-  const child = childProcess.spawn(process.execPath, [
-    require.resolve('pino-tee'),
-    'debug', `${logPath}/debug.log`,
-    'info', `${logPath}/info.log`,
-    'warn', `${logPath}/warn.log`,
-    'error', `${logPath}/error.log`,
-    'fatal', `${logPath}/fatal.log`
-  ], {cwd, env});
+  logThrough.pipe(child.stdin);
+  if (config.environment === 'development') {
+    const pretty = pino.pretty();
 
-  if (isDev) {
-    // const pretty = pino.pretty();
-    // pretty.pipe(process.stdout);
-    // logThrough.pipe(pretty);
+    pretty.pipe(process.stdout);
+    logThrough.pipe(pretty);
   }
 
   return logger;

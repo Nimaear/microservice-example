@@ -14,7 +14,7 @@ public class App
         try {
 
             AmqpTransporter t = new AmqpTransporter("amqp://guest:guest@rabbitmq:5672");
-            t.setDebug(true);
+            // t.setDebug(true);
             cfg.setTransporter(t);
 
             MathService math = new MathService();

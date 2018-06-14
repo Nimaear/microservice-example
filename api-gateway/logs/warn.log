@@ -1,0 +1,23 @@
+{"level":50,"time":1528114516409,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":40,"time":1528114516410,"msg":"Service 'Postgres.show' is not registered.","pid":9080,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-57e639e3-3569-4613-9a87-b2d1fdf6dba3","ns":"","mod":"broker","v":1}
+{"level":50,"time":1528114531065,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114532638,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114533145,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114533604,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114534060,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114534419,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114534770,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114535251,"msg":"No","pid":9080,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114647160,"msg":"No","pid":10294,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":50,"time":1528114649376,"msg":"No","pid":10294,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":40,"time":1528114649377,"msg":"Service 'Postgres.show' is not registered.","pid":10294,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-0d9f6b06-a786-4adf-979e-0ae3283c3798","ns":"","mod":"broker","v":1}
+{"level":50,"time":1528114658579,"msg":"No","pid":10294,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":40,"time":1528114658580,"msg":"Service 'Postgres.show' is not registered.","pid":10294,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-0d9f6b06-a786-4adf-979e-0ae3283c3798","ns":"","mod":"broker","v":1}
+{"level":50,"time":1528114674610,"msg":"No","pid":10606,"hostname":"manjaro","name":"ApiGateway","v":1}
+{"level":40,"time":1528114674612,"msg":"Service 'Postgres.show' is not registered.","pid":10606,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-ca756c7b-3b0e-4b03-af57-da526307c755","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114704672,"msg":"Service 'Postgres.show' is not registered.","pid":10901,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-c2c65288-ec9e-4340-8044-1c424882fdc4","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114760161,"msg":"Service 'Postgres.show' is not registered.","pid":11331,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-3dbd8257-5b7c-43aa-8c3d-8bb3d74b592a","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114822268,"msg":"Service 'Postgres.show' is not registered.","pid":11567,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-c74343d3-d5e8-40b8-ac5c-3c1161f8c595","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114849798,"msg":"Service 'Postgres.show' is not registered.","pid":11938,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-8892cb6a-ec28-49b6-ae01-5663f1e2bf7d","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114909237,"msg":"Service 'Postgres.show' is not registered.","pid":12553,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-0da946b1-6c30-40c6-9925-e8495ea41176","ns":"","mod":"broker","v":1}
+{"level":40,"time":1528114954014,"msg":"Service 'Postgres.show' is not registered.","pid":12847,"hostname":"manjaro","name":"ApiGateway","nodeID":"api-gateway-7a3c25a7-c334-4063-a081-d0acf6cc5d37","ns":"","mod":"broker","v":1}

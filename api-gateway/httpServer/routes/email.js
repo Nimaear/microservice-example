@@ -22,14 +22,13 @@ Example payload:
 
 export default async (context) => {
   const { logger } = context;
-  let count = 0;
   const queue = await createQueue(rabbitmq, 'email-sync', logger);
 
   return async (req, res) => {
-    const { message, subscription } = req.body;
+    const { message /*, subscription*/ } = req.body;
     const {
       data,
-      message_id,
+      // message_id,
     } = message;
     const emailData = JSON.parse(Buffer.from(data, 'base64').toString('utf8'));
     logger.info({ emailData });
@@ -39,5 +38,3 @@ export default async (context) => {
     });
   };
 };
-
-

@@ -33,12 +33,6 @@ export default async (broker, logger) => {
   // enable CORS - Cross Origin Resource Sharing
   app.use(cors());
 
-  app.use((req, res, next) => {
-    logger.error('No')
-    // req.log.debug({ req, res });
-    next();
-  });
-
   // Take care of allowed origins
   app.use((req, res, next) => {
     if (origins.length > 0) {
@@ -49,14 +43,20 @@ export default async (broker, logger) => {
     }
     next();
   });
-
   // Add routes
   await routes(app, { broker, logger });
+
+  app.use((error, req, res, next) => {
+    logger.error({ error });
+    next(error);
+  })
 
   // Simple health-check
   app.get('/', (req, res) => {
     const { query } = req;
     res.json({ Iam: 'OK' });
   });
+
+
   return https.createServer(options, app);
 };
